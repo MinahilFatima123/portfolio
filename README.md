@@ -1,16 +1,25 @@
 # my_portfolio
 
-A new Flutter project.
+A personal portfolio application and website created using Flutter and Dart. The web version is deployed on Vercel for fast and reliable hosting.  
 
-## Getting Started
+## Technologies  
+- Flutter  
+- Dart  
+- Vercel (Deployment)  
 
-This project is a starting point for a Flutter application.
+## Features  
+- Portfolio available as both mobile app and responsive website 
+- Works seamlessly across different screen sizes (mobile, tablet, web)  
+- Clean UI showcasing skills, projects, and personal details
+- Web version deployed using Vercel 
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+##  How to Run  
+   Clone the repository  
+   git clone https://github.com/your-username/portfolio-app.git
+   cd portfolio-app
+   flutter pub get
+   flutter run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
