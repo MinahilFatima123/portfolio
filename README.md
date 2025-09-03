@@ -16,7 +16,7 @@ A personal portfolio application and website created using Flutter and Dart. The
 
 ##  How to Run  
    Clone the repository  
-   git clone https://github.com/your-username/portfolio-app.git
+   git clone https://github.com/MinahilFatima123/portfolio-app.git
    cd portfolio-app
    flutter pub get
    flutter run
