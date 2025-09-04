@@ -89,7 +89,7 @@ class ProjectContainerWidget extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 12),
-          // Tech stack
+
           Wrap(
             spacing: 6,
             runSpacing: 6,

@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '/src/widgets/side_bar.dart';
+import '/src/utils/ThemeCollection.dart';
+import '/src/controllers/theme_controller.dart'; // <- import here
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Set transparent status bar with dark icons
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // transparent background
-    statusBarIconBrightness: Brightness.dark, // dark icons for Android
-    statusBarBrightness: Brightness.light, // dark icons for iOS
-    systemNavigationBarColor: Colors.white, // bottom nav bar white
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+    systemNavigationBarColor: Colors.white,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
+
+  // Initialize the theme controller
+  Get.put(ThemeController());
 
   runApp(const MyApp());
 }
@@ -23,24 +26,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    final ThemeController themeController = Get.find();
+
+    return Obx(() => GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Portfolio',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white, // keep background white
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle.dark, // makes sure dark icons
-        ),
-      ),
+      theme: ThemeCollection.lightTheme,
+      darkTheme: ThemeCollection.darkTheme,
+      themeMode: themeController.isDarkMode.value
+          ? ThemeMode.dark
+          : ThemeMode.light,
       home: SideBar(),
-    );
+    ));
   }
 }

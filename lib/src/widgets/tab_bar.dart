@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'custom_project_container.dart';
 import '/src/utils/extensions/theme_extensions.dart';
 
-// Controller for Projects Tab
+
 class ProjectsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;

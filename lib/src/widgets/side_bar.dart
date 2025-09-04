@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/src/utils/extensions/theme_extensions.dart';
-
+import '/src/controllers/theme_controller.dart';
 // Import your actual screens
 import '/src/modules/home_screen/view.dart';
 import '/src/modules/project/view.dart';
 import '/src/modules/profile/view.dart';
 import '/src/modules/experience/view.dart';
 import '/src/modules/contact/view.dart';
+import '/src/utils/AppColor.dart';
 
 /// Controller to manage sidebar state
 class SideBarController extends GetxController {
   var selectedIndex = 0.obs;
   var isExpanded = true.obs;
+  final ThemeController themeController = Get.find();
 }
 
 class SideBar extends StatelessWidget {
@@ -36,11 +38,12 @@ class SideBar extends StatelessWidget {
     return Scaffold(
       appBar: isMobile
           ? AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
         elevation: 0,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
+            icon: const Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
@@ -84,7 +87,7 @@ class SideBar extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundColor: context.textBlack,
+                    backgroundColor: AppColor.darkScreenBackground,
                     child: Icon(Icons.person, color: context.textWhite),
                   ),
                   if (c.isExpanded.value) ...[
@@ -115,22 +118,36 @@ class SideBar extends StatelessWidget {
 
             const Divider(color: Colors.white24, thickness: 1),
 
-            // Bottom toggle arrow
+            // Bottom column: stacked buttons
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(
-                    c.isExpanded.value
-                        ? Icons.arrow_back
-                        : Icons.arrow_forward,
-                    color: context.textWhite,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Theme toggle button
+                  Obx(() => IconButton(
+                    icon: Icon(
+                      c.themeController.isDarkMode.value
+                          ? Icons.light_mode
+                          : Icons.dark_mode,
+                      color: context.textWhite,
+                    ),
+                    onPressed: () => c.themeController.toggleTheme(),
+                  )),
+
+                  // Sidebar expand/collapse button
+                  IconButton(
+                    icon: Icon(
+                      c.isExpanded.value ? Icons.arrow_back : Icons.arrow_forward,
+                      color: context.textWhite,
+                    ),
+                    onPressed: () => c.isExpanded.value = !c.isExpanded.value,
                   ),
-                  onPressed: () => c.isExpanded.value = !c.isExpanded.value,
-                ),
+                ],
               ),
             ),
+
+
             const SizedBox(height: 10),
           ],
         ),
@@ -186,14 +203,13 @@ class SideBar extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundColor: context.textBlack,
+                  backgroundColor: AppColor.darkScreenBackground,
                   child: Icon(Icons.person, color: context.textWhite),
                 ),
                 const SizedBox(width: 10),
                 Text(
                   "Minahil Fatima",
-                  style:
-                  context.titleMedium?.copyWith(color: context.textWhite),
+                  style: context.titleMedium?.copyWith(color: context.textWhite),
                 ),
               ],
             ),
@@ -203,10 +219,28 @@ class SideBar extends StatelessWidget {
           _drawerNavItem(context, Icons.work, "Projects", 2),
           _drawerNavItem(context, Icons.history, "Experience", 3),
           _drawerNavItem(context, Icons.mail, "Contact", 4),
+
+          const Spacer(),
+
+          // Theme toggle button at bottom of drawer
+          Obx(() => ListTile(
+            leading: Icon(
+              Get.find<ThemeController>().isDarkMode.value
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+              color: context.textWhite,
+            ),
+            title: Text(
+              "Toggle Theme",
+              style: context.bodyMedium?.copyWith(color: context.textWhite),
+            ),
+            onTap: () => Get.find<ThemeController>().toggleTheme(),
+          )),
         ],
       ),
     );
   }
+
 
   /// Drawer navigation item for mobile
   Widget _drawerNavItem(
