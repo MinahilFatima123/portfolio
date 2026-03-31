@@ -115,7 +115,10 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 12),
         _educationItem(context, "2020-2022", "Intermediate (ICS)", "KIPS College Lahore"),
         const SizedBox(height: 12),
+
         _educationItem(context, "2018-2020", "SSC", "Pride Public High School Lahore"),
+
+
       ],
     );
   }

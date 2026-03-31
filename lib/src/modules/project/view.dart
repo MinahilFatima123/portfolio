@@ -12,6 +12,7 @@ class ProjectsScreen extends StatelessWidget {
 
     final projects = [
 
+
       {
         "title": "Decentralized Supply Chain Monitoring System",
         "description":
@@ -54,6 +55,7 @@ class ProjectsScreen extends StatelessWidget {
         "techStack": ["React Native", "JavaScript", "Firebase Auth", "Firestore", "Firebase Storage"],
         "category": "Apps",
       }
+
     ];
 
     final screenWidth = Get.width;
